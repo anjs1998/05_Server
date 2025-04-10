@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="/resources/css/detail.css">
 </head>
 <body>
+
+	
+	
 	<h1>${todo.todoTitle}</h1>
 	<div class = "complete" >완료 여부 : 
 		<c:if test="${todo.todoComplete }">

@@ -12,6 +12,19 @@
 	<link rel="stylesheet" href="/resources/css/main.css">
 </head>
 <body>
+	<c:if test="${empty sessionScope.loginMember} ">
+		<form action="/login" method = "post">
+		아이디 : <input type = "text" id = "login">로그인</input>
+		비밀번호 : <input type = "password" id = "logout">로그아웃</input>
+		<button>로그인</button>
+	</form>
+	</c:if>
+	
+	<c:if test="${not empty sessionScope.loginMember} ">
+		<p>${sessionScope.loginMember } 환영합니다!</p><button ></button>
+	</c:if>
+	
+	
 	<h1>Todo List</h1>
 	
 	<h3>전체 Todo 개수 : ${fn:length(todoList)}개 / 
@@ -81,7 +94,7 @@
 	 <c:if test="${not empty sessionScope.message }">
 	 
 	 	<script>
-	 		alert("%{message}");
+	 		alert("${message}");
 	 		//JSP 해석 순위
 	 		//1순위 : JAVA : (EL, SJTL)
 	 		//2순위 : Front(html, css, js)

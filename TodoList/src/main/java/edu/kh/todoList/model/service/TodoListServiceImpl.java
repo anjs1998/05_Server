@@ -20,7 +20,7 @@ public class TodoListServiceImpl implements TodoListService{
 	public Map<String, Object> todoListFullView() throws Exception {
 		
 		// 커넥션 생성
-		Connection conn = getConnection();
+		Connection conn = getConnection(); //sql
 		
 		// dao 호출 및 반환하기
 		// 1) 할 일 목록 얻어오기
@@ -75,6 +75,35 @@ public class TodoListServiceImpl implements TodoListService{
 		Connection conn = getConnection();
 		
 		int result = dao.todoComplete(conn, todoNo);
+		
+		if(result > 0) commit(conn);
+		else			rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	@Override
+	public int todoDelete(int todoNo) throws Exception {
+		Connection conn = getConnection(); //sql
+		
+		int result = dao.todoDelete(conn, todoNo);
+		
+		// DML은 트랜잭션 처리 필수!
+		
+		if(result > 0) commit(conn);
+		else			rollback(conn);
+		close(conn);
+		
+		return result;
+		
+	}
+
+	@Override
+	public int todoUpdate(int todoNo, String title, String detail) throws Exception {
+		Connection conn = getConnection();
+		int result = dao.todoUpdate(conn, todoNo, title, detail);
 		
 		if(result > 0) commit(conn);
 		else			rollback(conn);
